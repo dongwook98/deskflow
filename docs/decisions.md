@@ -221,6 +221,10 @@
 ### D-46 · 2026-09-15 · 확정 — 렌더 중 Date.now() 금지 (react-hooks/purity)
 - 취소 가능 여부·다가오는 예약 분류의 기준 시각은 useState(() => Date.now()) 로 마운트 시 1회 고정.
 
+### D-47 · 2026-09-15 · 확정 — GitHub 공개 리포 `dongwook98/deskflow`, main 단일 브랜치
+- 포트폴리오 목적이라 public. 비밀값은 `.env.local` 로 gitignore, 커밋에 없음(스캔 확인).
+- 1인 개발이라 main 직접 커밋. Vercel 은 main push 마다 프로덕션 배포 (Plan D).
+
 ---
 
 ## 보류 (답 필요)
