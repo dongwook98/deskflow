@@ -14,3 +14,6 @@ export { PropertiesPanel } from "./ui/properties-panel";
 export { useEditorKeyboard } from "./ui/use-editor-keyboard";
 export { HistoryControls } from "./ui/history-controls";
 export { ZoomControls } from "./ui/zoom-controls";
+export { SaveControls } from "./ui/save-controls";
+export { useUnsavedChangesGuard } from "./ui/use-unsaved-changes-guard";
+export { useSaveLayout, useReloadFromServer } from "./api/mutations";

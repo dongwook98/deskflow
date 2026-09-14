@@ -2470,7 +2470,7 @@ git commit -m "feat(editor): 휠 줌(커서 고정, 5단계), Space·휠클릭 �
 - Consumes: `toSaveInput`, `roomKeys`, `roomQueries.layout`, `apiFetch`, `ApiError`, `SaveLayoutResultDto`.
 - Produces: `useSaveLayout(): { save(): void; isPending: boolean }`, `useReloadFromServer(): { reload(): Promise<void>; isPending }`, `<SaveControls />`, `useUnsavedChangesGuard()`.
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/features/room-editor/api/mutations.ts`
 ```ts
@@ -2624,18 +2624,18 @@ export { useSaveLayout, useReloadFromServer } from "./api/mutations";
 ```
 `room-editor-page.tsx` 의 `EditorBody` 에 `useUnsavedChangesGuard();` 호출과 상단 바 우측 `<SaveControls />` (`ml-auto`).
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 확인**
+- [x] **Step 3: 브라우저 확인**
 
 1. 진입 직후 "✓ 저장됨". 좌석 이동 → "● 저장되지 않은 변경사항", 저장 버튼 활성. Ctrl+Z 로 원위치 → 다시 "✓ 저장됨"(참조 비교).
 2. 저장 → "저장 중..." → "✓ 저장됨". 새로고침 → 배치 유지 (PRD 20절 시스템 조건).
 3. 충돌 재현: 탭 A, B 에서 같은 에디터 열기. A 에서 저장. B 에서 이동 후 저장 → 충돌 문구 + "서버 버전 불러오기 / 계속 편집". 불러오기 → A 의 배치로 교체, Undo 비활성. "계속 편집" 후 다시 저장하면 또 충돌(버전 그대로) — 의도된 동작.
 4. dirty 상태에서 새로고침 → 브라우저 확인창.
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A
