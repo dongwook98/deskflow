@@ -786,7 +786,7 @@ git commit -m "feat(server): add http helpers - error mapping, responses, auth g
 - Consumes: `getSupabaseEnv()` (Task 2).
 - Produces: 없음 (Next 파일 컨벤션).
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/proxy.ts`
 ```ts
@@ -870,12 +870,12 @@ export default function Home() {
 }
 ```
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 통과
 
-- [ ] **Step 3: 동작 확인** (dev 서버 실행 중)
+- [x] **Step 3: 동작 확인** (dev 서버 실행 중)
 
 ```bash
 curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" http://localhost:3000/
@@ -884,7 +884,7 @@ curl -s -w "\n%{http_code}\n" http://localhost:3000/api/rooms
 ```
 Expected: 첫 줄 `307 http://localhost:3000/rooms` (page.tsx redirect), 둘째 줄 `307 http://localhost:3000/login?next=%2Frooms`, 셋째 줄 `{"error":{"code":"unauthorized",...}}` 와 `401`.
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A
