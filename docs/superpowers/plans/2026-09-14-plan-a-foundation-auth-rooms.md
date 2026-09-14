@@ -383,7 +383,7 @@ git commit -m "feat(shared): add apiFetch, QueryClient, provider and site origin
 **Interfaces:**
 - Produces: `getSupabaseEnv(): { url: string; key: string }`, `createServerSupabase(): Promise<ServerSupabase>`, `type ServerSupabase = SupabaseClient<Database>`, `type Tables<"rooms">` 등(생성 파일).
 
-- [ ] **Step 1: 실패하는 테스트** — `src/app/api/_server/db/env.test.ts`
+- [x] **Step 1: 실패하는 테스트** — `src/app/api/_server/db/env.test.ts`
 
 ```ts
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -415,12 +415,12 @@ describe("getSupabaseEnv", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/app/api/_server/db/env.test.ts`
 Expected: FAIL — import 실패
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `src/app/api/_server/db/env.ts`
 ```ts
@@ -487,7 +487,7 @@ supabase gen types typescript --linked --schema public > src/app/api/_server/db/
 ```
 CLI 가 실패하면(네트워크 등) `supabase gen types typescript --local` 은 Docker 가 필요하므로 쓰지 않는다. 대신 사용자에게 알리고 중단.
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 통과. `database.types.ts` 에 `rooms`, `seats`, `space_objects`, `reservations`, `profiles` 와 `Functions.save_room_layout`, `Functions.get_seat_availability` 가 있는지 `grep` 으로 확인:
@@ -496,7 +496,7 @@ grep -c "save_room_layout\|get_seat_availability\|reservations" src/app/api/_ser
 ```
 Expected: 3 이상
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add -A
