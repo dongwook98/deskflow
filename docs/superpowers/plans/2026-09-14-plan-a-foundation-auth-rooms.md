@@ -1657,7 +1657,7 @@ git commit -m "feat(api): add rooms CRUD endpoints and service"
 - Consumes: `apiFetch`, `getQueryClient`, `serverFetchContext`, `meQuery`, `RoomDto`, `CreateRoomInput`, `UpdateRoomInput`, `createRoomSchema`, `Button/Input/Field`.
 - Produces: `roomKeys.all/list()/detail(id)/layout(id)/availability(id,start,end)`, `roomQueries.list(ctx?)`, `roomQueries.detail(id, ctx?)`, `useCreateRoom()`, `useUpdateRoom(id)`, `useDeleteRoom()`, `<RoomForm mode="create"|"edit" />`, `<DeleteRoomButton roomId />`, `<RoomCard room href />`, `<AppHeader me />`.
 
-- [ ] **Step 1: entities/room**
+- [x] **Step 1: entities/room**
 
 `src/entities/room/model/query-keys.ts`
 ```ts
@@ -1720,7 +1720,7 @@ export { roomQueries } from "./api/queries";
 export { RoomCard } from "./ui/room-card";
 ```
 
-- [ ] **Step 2: features/room-manage**
+- [x] **Step 2: features/room-manage**
 
 `src/features/room-manage/api/mutations.ts`
 ```ts
@@ -1869,7 +1869,7 @@ export { DeleteRoomButton } from "./ui/delete-room-button";
 export { useCreateRoom, useUpdateRoom, useDeleteRoom } from "./api/mutations";
 ```
 
-- [ ] **Step 3: widgets/app-header**
+- [x] **Step 3: widgets/app-header**
 
 `src/widgets/app-header/ui/app-header.tsx`
 ```tsx
@@ -1912,7 +1912,7 @@ export function AppHeader({ me }: { me: MeDto }) {
 export { AppHeader } from "./ui/app-header";
 ```
 
-- [ ] **Step 4: (user) 레이아웃 + 페이지**
+- [x] **Step 4: (user) 레이아웃 + 페이지**
 
 `src/app/(user)/layout.tsx`
 ```tsx
@@ -2015,7 +2015,7 @@ export default async function RoomDetailPage({ params }: Props) {
 }
 ```
 
-- [ ] **Step 5: (admin) 레이아웃 + 페이지**
+- [x] **Step 5: (admin) 레이아웃 + 페이지**
 
 `src/app/(admin)/admin/layout.tsx`
 ```tsx
@@ -2150,7 +2150,7 @@ export default async function AdminRoomPage({ params }: Props) {
 }
 ```
 
-- [ ] **Step 6: 통과 확인**
+- [x] **Step 6: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
