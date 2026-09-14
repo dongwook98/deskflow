@@ -210,6 +210,17 @@
 - EditorStoreProvider 는 widget 안에서 1회 생성. refetch 가 편집 문서를 덮지 않는다.
 - 앱 내 이동 경고는 Next 라우터 이벤트가 없어 "← 공간 정보" 링크의 onClick confirm 으로 처리. 외부 이동/새로고침은 beforeunload.
 
+### D-44 · 2026-09-15 · 확정 — 예약 조회는 reservation_details 뷰(security_invoker)
+- 좌석명·룸명·사용자명을 매 요청 조인 대신 뷰 하나로. security_invoker 라 RLS 가 그대로 적용돼 일반 사용자는 본인 행만 본다.
+- 대안: PostgREST 중첩 select. 타입 추론이 복잡하고 4단 조인이라 뷰가 읽기 쉽다.
+- 뷰 컬럼은 생성 타입에서 nullable 로 나오므로 매퍼가 null 을 명시적으로 거른다.
+
+### D-45 · 2026-09-15 · 확정 — 예약 성공 안내는 위젯 배너, 패널은 선택 해제로 언마운트
+- 브라우저 검증에서 "예약되었습니다" 문구가 패널과 함께 사라지는 결함 발견 → 위젯 상태(notice, role=status)로 이동. 시간 변경 시 지운다.
+
+### D-46 · 2026-09-15 · 확정 — 렌더 중 Date.now() 금지 (react-hooks/purity)
+- 취소 가능 여부·다가오는 예약 분류의 기준 시각은 useState(() => Date.now()) 로 마운트 시 1회 고정.
+
 ---
 
 ## 보류 (답 필요)

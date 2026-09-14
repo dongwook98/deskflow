@@ -1424,7 +1424,7 @@ git commit -m "feat(reservation): 공간 상세 예약 화면 - 시간 선택 �
 - Create: `src/app/(user)/reservations/page.tsx`
 - Create: `src/app/(admin)/admin/reservations/page.tsx`
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/widgets/my-reservations/ui/my-reservations.tsx`
 ```tsx
@@ -1592,18 +1592,18 @@ export default async function AdminReservationsPage() {
           ) : null}
 ```
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 확인 (PRD 20절 사용자 흐름 + 성공 기준 3)**
+- [x] **Step 3: 브라우저 확인 (PRD 20절 사용자 흐름 + 성공 기준 3)**
 
 1. `/reservations`: 방금 만든 예약이 "다가오는 예약" 에, 취소 → confirm → "지난 · 취소된 예약" 으로 이동.
 2. 취소 후 `/rooms/<id>` 같은 시간 → 좌석이 파랑으로 돌아옴.
 3. `/admin/reservations`: 오늘 날짜 필터, 공간 선택, 사용자 이름 표시. 일반 계정으로 `/api/admin/reservations` → 403.
 4. 동시성: 두 계정으로 같은 좌석·시간 POST 를 `curl ... & curl ...` 로 동시에 → 하나 201, 하나 409.
 
-- [ ] **Step 4: 커밋 + 결정 기록**
+- [x] **Step 4: 커밋 + 결정 기록**
 
 `docs/decisions.md`:
 ```

@@ -18,9 +18,14 @@ export function AppHeader({ me }: { me: MeDto }) {
             내 예약
           </Link>
           {me.role === "admin" ? (
-            <Link href="/admin/rooms" className="text-zinc-700 hover:text-zinc-900">
-              관리
-            </Link>
+            <>
+              <Link href="/admin/rooms" className="text-zinc-700 hover:text-zinc-900">
+                관리
+              </Link>
+              <Link href="/admin/reservations" className="text-zinc-700 hover:text-zinc-900">
+                예약 현황
+              </Link>
+            </>
           ) : null}
         </nav>
         <div className="flex items-center gap-3 text-sm">
