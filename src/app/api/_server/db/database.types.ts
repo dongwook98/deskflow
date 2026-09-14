@@ -212,7 +212,45 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      reservation_details: {
+        Row: {
+          cancelled_at: string | null
+          created_at: string | null
+          end_at: string | null
+          id: string | null
+          room_id: string | null
+          room_name: string | null
+          seat_id: string | null
+          seat_name: string | null
+          start_at: string | null
+          status: Database["public"]["Enums"]["reservation_status"] | null
+          user_id: string | null
+          user_name: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_seat_id_fkey"
+            columns: ["seat_id"]
+            isOneToOne: false
+            referencedRelation: "seats"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "space_objects_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       get_seat_availability: {

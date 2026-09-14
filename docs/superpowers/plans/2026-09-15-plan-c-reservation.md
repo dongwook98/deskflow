@@ -66,7 +66,7 @@ src/
 - Produces (time-slots): `KST_OFFSET = "+09:00"`, `OPEN_HOUR = 9`, `CLOSE_HOUR = 22`, `SLOT_MINUTES = 30`, `buildTimeSlots(): string[]` ("09:00" … "22:00"), `toKstIso(date: string, time: string): string`, `todayKst(now?: Date): string`, `nextSlotAfter(now?: Date): { date: string; time: string } | null`, `addSlots(time: string, count: number): string | null`, `formatKst(iso: string): string` ("9/15 (월) 09:00").
 - Produces (overlap): `overlaps(aStart, aEnd, bStart, bEnd): boolean` (반열림 구간 `[start, end)`).
 
-- [ ] **Step 1: 마이그레이션** — `supabase/migrations/0002_reservation_details.sql`
+- [x] **Step 1: 마이그레이션** — `supabase/migrations/0002_reservation_details.sql`
 
 ```sql
 -- 예약 조회용 뷰. 좌석명·룸명·사용자명을 한 번에 조인한다.
@@ -103,7 +103,7 @@ select 'view has names: ' || bool_and(seat_name = 'A1-renamed' and room_name = '
 ```
 (주의: 스모크는 모든 마이그레이션을 순서대로 적용한 뒤 실행되므로 0002 의 뷰가 존재한다. profiles.name 은 이메일 local part `user`.)
 
-- [ ] **Step 2: 로컬 검증 → 원격 적용 → 타입 재생성**
+- [x] **Step 2: 로컬 검증 → 원격 적용 → 타입 재생성**
 
 ```bash
 pnpm db:smoke                     # ALL SMOKE PASSED + view 2줄 확인
@@ -114,7 +114,7 @@ supabase gen types typescript --linked --schema public > /tmp/db.types.ts
 grep -n "reservation_details" src/app/api/_server/db/database.types.ts | head -2   # Views 아래 존재
 ```
 
-- [ ] **Step 3: 계약 수정** — `src/shared/contracts/reservation.ts` (전체 교체)
+- [x] **Step 3: 계약 수정** — `src/shared/contracts/reservation.ts` (전체 교체)
 
 ```ts
 import { z } from "zod";
@@ -181,7 +181,7 @@ export type AvailabilityQuery = z.infer<typeof availabilityQuerySchema>;
 export type AdminReservationsQuery = z.infer<typeof adminReservationsQuerySchema>;
 ```
 
-- [ ] **Step 4: 실패하는 테스트** — `src/entities/reservation/lib/time-slots.test.ts`
+- [x] **Step 4: 실패하는 테스트** — `src/entities/reservation/lib/time-slots.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -261,12 +261,12 @@ describe("overlaps", () => {
 });
 ```
 
-- [ ] **Step 5: 실패 확인**
+- [x] **Step 5: 실패 확인**
 
 Run: `pnpm test src/entities/reservation`
 Expected: FAIL (모듈 없음)
 
-- [ ] **Step 6: 구현**
+- [x] **Step 6: 구현**
 
 `src/entities/reservation/lib/time-slots.ts`
 ```ts
@@ -364,12 +364,12 @@ export function overlaps(aStart: string, aEnd: string, bStart: string, bEnd: str
 }
 ```
 
-- [ ] **Step 7: 통과 확인**
+- [x] **Step 7: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 테스트 76개 통과 (67 + 9)
 
-- [ ] **Step 8: 커밋**
+- [x] **Step 8: 커밋**
 
 ```bash
 git add -A

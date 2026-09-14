@@ -94,5 +94,8 @@ do $$ begin
   raise exception 'expected restrict';
 exception when foreign_key_violation then raise notice 'seat with reservations delete blocked 23503 OK';
 end $$;
+select set_config('request.jwt.claim.sub','22222222-2222-2222-2222-222222222222', false);
+select 'view rows for user: ' || count(*) || ' (expect 2)' from public.reservation_details;
+select 'view has names: ' || bool_and(seat_name = 'A1-renamed' and room_name = 'Room A' and user_name = 'user') from public.reservation_details;
 select 'ALL SMOKE PASSED';
 SQL
