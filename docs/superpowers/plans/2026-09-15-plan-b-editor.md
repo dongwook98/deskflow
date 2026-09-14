@@ -1561,7 +1561,7 @@ git commit -m "feat(editor): Zustand 스토어 - 문서 변경, 제스처 히스
 - Consumes: `useEditorStore`, `useEditorStoreApi`, `orderedObjects`, `screenToCanvas`.
 - Produces: `<EditorCanvas />`, `<SpaceObjectView object selected />`, `useCanvasPointer(svgRef): { handlers, isPanning }`.
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/features/room-editor/ui/space-object-view.tsx`
 ```tsx
@@ -1783,7 +1783,7 @@ export function EditorCanvas() {
 export { EditorCanvas } from "./ui/editor-canvas";
 ```
 
-- [ ] **Step 2: 임시 페이지로 눈 확인** (Task 9 전까지만 쓰는 최소 조립)
+- [x] **Step 2: 임시 페이지로 눈 확인** (Task 9 전까지만 쓰는 최소 조립)
 
 `src/app/(admin)/admin/rooms/[roomId]/editor/page.tsx`
 ```tsx
@@ -1838,17 +1838,17 @@ export function RoomEditorPage({ roomId }: { roomId: string }) {
 }
 ```
 
-- [ ] **Step 3: 통과 확인**
+- [x] **Step 3: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 4: 브라우저 확인** (Task 1 Step 5 로 넣어 둔 A1 좌석·테이블이 있는 room)
+- [x] **Step 4: 브라우저 확인** (Task 1 Step 5 로 넣어 둔 A1 좌석·테이블이 있는 room)
 
 1. `/admin/rooms/<id>/editor` 진입 → room 사각형이 화면 가운데에 맞춰 보인다.
 2. A1 좌석 클릭 → 파란 점선 선택 테두리. 빈 곳 클릭 → 해제.
 3. 좌석을 드래그 → 10px 단위로 따라오고 room 밖으로 안 나간다. 회전된 테이블(90°)도 잡힌다.
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add -A
