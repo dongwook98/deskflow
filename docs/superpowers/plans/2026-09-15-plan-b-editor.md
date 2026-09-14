@@ -72,7 +72,7 @@ src/
 - Consumes: `Tables<"space_objects">`, `Tables<"seats">`, `Json` (database.types), `LayoutDto`, `SpaceObjectDto`, `SaveLayoutInput`, `SaveLayoutResultDto`, `saveLayoutSchema`, `Rotation` (contracts), http 헬퍼(Plan A Task 3), `getRoom`(rooms.service).
 - Produces: `toSpaceObjectDto(row: SpaceObjectRowWithSeat): SpaceObjectDto`, `toRotation(n: number): Rotation`, `getLayout(supabase, roomId): Promise<LayoutDto>`, `saveLayout(supabase, roomId, input: SaveLayoutInput): Promise<SaveLayoutResultDto>`, `roomQueries.layout(roomId, ctx?)`.
 
-- [ ] **Step 1: 실패하는 테스트** — `src/app/api/_server/rooms/layout.mapper.test.ts`
+- [x] **Step 1: 실패하는 테스트** — `src/app/api/_server/rooms/layout.mapper.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -133,12 +133,12 @@ describe("toRotation", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/app/api/_server/rooms/layout.mapper.test.ts`
 Expected: FAIL — `Cannot find module './layout.mapper'`
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `src/app/api/_server/rooms/layout.mapper.ts`
 ```ts
@@ -275,12 +275,12 @@ export const PUT = withErrorHandling<Ctx>(async (req, { params }) => {
 ```
 import 에 `LayoutDto` 추가: `import type { LayoutDto, RoomDto } from "@/shared/contracts";`
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 테스트 33개 통과
 
-- [ ] **Step 5: 동작 확인** (dev :3000, admin 쿠키 jar `$J` 는 Plan A 와 동일)
+- [x] **Step 5: 동작 확인** (dev :3000, admin 쿠키 jar `$J` 는 Plan A 와 동일)
 
 ```bash
 R=<1층 오피스 room id>
@@ -297,7 +297,7 @@ curl -s -b $J http://localhost:3000/api/rooms/$R/layout | python3 -m json.tool |
 ```
 Expected: 1) `objects: []`, `layoutVersion: 0` 2) `{"layoutVersion":1}` 3) `{"error":{"code":"version_conflict",...}}` 409 4) 오브젝트 2개, seat 에 `seat.name = "A1"`.
 
-- [ ] **Step 6: 커밋**
+- [x] **Step 6: 커밋**
 
 ```bash
 git add -A
