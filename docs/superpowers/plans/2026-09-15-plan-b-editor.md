@@ -2650,7 +2650,7 @@ git commit -m "feat(editor): 저장 mutation, Dirty 표시, 이탈 경고, 버�
 - Create: `src/widgets/room-editor/ui/editor-shell.tsx`, `src/widgets/room-editor/index.ts`
 - Modify: `src/app/(admin)/admin/rooms/[roomId]/editor/room-editor-page.tsx` (임시 조립 제거, widget 사용)
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/widgets/room-editor/ui/editor-shell.tsx`
 ```tsx
@@ -2758,11 +2758,11 @@ export function RoomEditorPage({ roomId }: { roomId: string }) {
 ```
 (page.tsx 는 Task 4 것 유지. `(admin)` 레이아웃의 `max-w-6xl px-4 py-6` 안에서 렌더된다.)
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 최종 확인 (PRD 20절 관리자 흐름)**
+- [x] **Step 3: 브라우저 최종 확인 (PRD 20절 관리자 흐름)**
 
 1. `/admin/rooms/<id>` → "에디터 열기" → 헤더에 room 이름, 실행취소/다시실행, 줌, 저장 상태.
 2. Seat/Table/Wall 추가 → 드래그 → 회전 → 삭제 → Undo/Redo → Zoom/Pan → 저장 → 새로고침 후 유지.
@@ -2770,7 +2770,7 @@ Run: `pnpm typecheck && pnpm lint && pnpm test`
 4. 창 폭 700px → 데스크톱 안내 문구.
 5. 좌석 20개 이상 배치 후 드래그 프레임 드랍 없음 (성공 기준 1).
 
-- [ ] **Step 4: 커밋 + 결정 기록**
+- [x] **Step 4: 커밋 + 결정 기록**
 
 `docs/decisions.md` 에 추가:
 ```

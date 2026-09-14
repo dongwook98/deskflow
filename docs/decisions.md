@@ -205,6 +205,11 @@
 - 첫 admin 승격 등 일회성 데이터 변경은 마이그레이션이 아니라 `db query` 로 실행한다. 스키마 변경만 마이그레이션.
 - 바이너리 교체 후 첫 실행 시 macOS 키체인이 "로그인 키체인 암호" 를 묻는다(저장된 액세스 토큰 접근 권한). Mac 로그인 비밀번호 입력 + 항상 허용.
 
+### D-43 · 2026-09-15 · 확정 — 에디터 조립은 widgets/room-editor, 페이지는 prefetch 만
+- 페이지(RSC)가 room + layout 을 fetchQuery 로 prefetch → HydrationBoundary → widget 이 useSuspenseQuery 로 캐시 hit.
+- EditorStoreProvider 는 widget 안에서 1회 생성. refetch 가 편집 문서를 덮지 않는다.
+- 앱 내 이동 경고는 Next 라우터 이벤트가 없어 "← 공간 정보" 링크의 onClick confirm 으로 처리. 외부 이동/새로고침은 beforeunload.
+
 ---
 
 ## 보류 (답 필요)
