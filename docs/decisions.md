@@ -181,8 +181,10 @@
 ### D-22 · 확정 — Vercel 은 프로덕션 배포만 사용
 - 영향: D-10(B 패턴)의 프리뷰 Deployment Protection 문제 없음. `NEXT_PUBLIC_SITE_URL` 은 프로덕션 도메인 하나만 설정.
 
-### D-37 · 확정 — 마이그레이션은 Supabase CLI 로 적용
-- `supabase link --project-ref <ref>` 후 `supabase db push`. `supabase/migrations/*.sql` 이 단일 진실. 대시보드 SQL Editor 직접 수정 금지.
+### D-37 · 확정 — 마이그레이션 파일은 `supabase/migrations`, 적용은 대시보드 SQL Editor
+- 사용자 선택(CLI 버전 구형, 웹이 편함). 파일이 단일 진실. 새 마이그레이션은 새 파일로 만들고 SQL Editor 에 붙여넣어 실행.
+- 주의: 웹 실행은 `schema_migrations` 이력에 안 남는다. CLI `db push` 로 전환하려면 `supabase migration repair --status applied <번호>` 로 이력을 먼저 맞춘다.
+- 적용 전 `pnpm db:smoke` 로 로컬 검증(D-41).
 
 ### D-38 · 2026-09-14 · 확정 — 프로젝트 Node 버전을 `.npmrc` `use-node-version=22.21.0` 로 고정
 - 문제: 이 머신의 pnpm 이 `/usr/local/bin/node`(20.11) 위에서 실행돼 스크립트도 그 Node 를 씀. Vite 7 / Vitest 는 Node 20.19+ 필요(`ERR_REQUIRE_ESM`, `styleText` 없음).
