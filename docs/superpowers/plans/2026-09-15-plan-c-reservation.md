@@ -726,7 +726,7 @@ git commit -m "feat(api): 예약 생성/내 목록/취소/가용성/관리자 �
 **Interfaces:**
 - Produces: `reservationKeys.all/mine()/admin(query)`, `reservationQueries.mine(ctx?)`, `reservationQueries.admin(query, ctx?)`, `roomQueries.availability(roomId, startAt, endAt)` (staleTime 15s, refetchOnWindowFocus), `<RoomMap layout seatStatusOf selectedSeatId onSelectSeat />`, `<ReservationCard reservation actions? />`.
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/entities/reservation/model/query-keys.ts`
 ```ts
@@ -960,11 +960,11 @@ function MapObject({
 
 `src/entities/room/index.ts` 에 `export { RoomMap } from "./ui/room-map";` 추가.
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add -A

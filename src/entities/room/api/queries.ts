@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { apiFetch, type ServerFetchContext } from "@/shared/api";
-import type { LayoutDto, RoomDto } from "@/shared/contracts";
+import type { AvailabilityDto, LayoutDto, RoomDto } from "@/shared/contracts";
 import { roomKeys } from "../model/query-keys";
 
 /** ctx 는 RSC prefetch 에서만. 클라이언트는 인자 없이 호출해 같은 키로 캐시를 읽는다. */
@@ -20,5 +20,16 @@ export const roomQueries = {
     queryOptions({
       queryKey: roomKeys.layout(roomId),
       queryFn: () => apiFetch<LayoutDto>(`/api/rooms/${roomId}/layout`, undefined, ctx),
+    }),
+  /** 가용성은 다른 사용자의 예약이 곧 반영돼야 하므로 짧은 staleTime + 포커스 refetch (스펙 8절) */
+  availability: (roomId: string, startAt: string, endAt: string) =>
+    queryOptions({
+      queryKey: roomKeys.availability(roomId, startAt, endAt),
+      queryFn: () =>
+        apiFetch<AvailabilityDto>(
+          `/api/rooms/${roomId}/availability?startAt=${encodeURIComponent(startAt)}&endAt=${encodeURIComponent(endAt)}`,
+        ),
+      staleTime: 15 * 1000,
+      refetchOnWindowFocus: true,
     }),
 };
