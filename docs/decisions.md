@@ -169,6 +169,7 @@
 
 ### D-34 · 확정 — 첫 admin 은 SQL 로 수동 승격
 - `update profiles set role = 'admin' where id = '<uuid>'`. README 에 명시.
+- `prevent_role_change` 트리거는 `auth.uid()` 가 없는 컨텍스트(대시보드 SQL Editor, service role)를 통과시킨다. 일반 사용자의 자기 승격만 차단. (스모크 테스트에서 발견해 수정)
 
 ### D-35 · 확정 — Supabase 이메일 확인 비활성 권장
 - 이유: 켜져 있으면 가입 후 메일 인증 전 로그인 불가. MVP 테스트 마찰.
@@ -190,6 +191,14 @@
 
 ### D-39 · 2026-09-14 · 확정 — Vitest 3.x 사용 (5.0 아님)
 - 이유: 5.0 은 출시 직후(rolldown 기반). 3.x 가 현재 실무 다수. 문제 시 검색 자료 풍부. Node 문제 해결 후에도 유지.
+
+### D-40 · 2026-09-14 · 확정 — 예약 있는 좌석은 삭제 불가 (`reservations.seat_id on delete restrict`)
+- 대안: cascade(좌석 삭제 시 예약 조용히 삭제).
+- 이유: 사용자 예약이 관리자 편집으로 사라지는 사고 방지. 레이아웃 저장 시 23503 → 409 `seat_has_reservations` 로 안내. 관리자가 예약을 먼저 취소해야 삭제 가능.
+
+### D-41 · 2026-09-14 · 확정 — 마이그레이션은 `pnpm db:smoke` 로 로컬 검증 후 push
+- 임시 Postgres 에 Supabase 환경(auth 스키마, roles, 권한)을 스텁으로 재현. exclusion constraint, RLS, RPC 버전 충돌, seat id 유지, restrict 를 확인.
+- 한계: 실제 Supabase 의 auth 훅·기본 권한과 100% 동일하지 않음. `db push` 후 실제 환경에서 한 번 더 확인.
 
 ---
 

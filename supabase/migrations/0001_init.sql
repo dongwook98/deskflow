@@ -52,13 +52,14 @@ as $$
   );
 $$;
 
--- 일반 사용자가 자기 role 을 바꾸지 못하게
+-- 일반 사용자가 자기 role 을 바꾸지 못하게.
+-- auth.uid() 가 없는 컨텍스트(대시보드 SQL Editor, service role)는 허용 → 첫 admin 승격 경로.
 create or replace function public.prevent_role_change()
 returns trigger
 language plpgsql
 as $$
 begin
-  if new.role <> old.role and not public.is_admin() then
+  if new.role <> old.role and auth.uid() is not null and not public.is_admin() then
     raise exception 'role change not allowed' using errcode = 'insufficient_privilege';
   end if;
   return new;
