@@ -525,7 +525,7 @@ git commit -m "feat(server): add Supabase server client, env loader and generate
   - `parseBody<S extends ZodType>(req: Request, schema: S): Promise<z.output<S>>`, `parseQuery<S extends ZodType>(url: URL, schema: S): z.output<S>`
   - `requireUser(supabase): Promise<{ id: string }>`, `requireAdmin(supabase): Promise<{ id: string }>`
 
-- [ ] **Step 1: 실패하는 테스트**
+- [x] **Step 1: 실패하는 테스트**
 
 `src/app/api/_server/http/errors.test.ts`
 ```ts
@@ -608,12 +608,12 @@ describe("parseQuery", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/app/api/_server/http`
 Expected: FAIL — import 실패
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `src/app/api/_server/http/errors.ts`
 ```ts
@@ -762,12 +762,12 @@ export async function requireAdmin(supabase: ServerSupabase): Promise<AuthUser> 
 }
 ```
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 통과 (테스트 27개)
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add -A
