@@ -393,7 +393,7 @@ git commit -m "feat(reservation): reservation_details 뷰, 계약 갱신, 시간
 - Consumes: `Tables<"reservation_details">`, `Tables<"seats">`, http 헬퍼, `KST_OFFSET` 는 서버에서도 필요 → `@/shared/contracts` 가 아니라 entities 라 서버가 import 불가. 서버는 문자열 `"+09:00"` 을 `_server/reservations` 안 상수로 둔다.
 - Produces: `toReservationDto(row: Tables<"reservation_details">): ReservationDto`, `listMyReservations(supabase, userId)`, `createReservation(supabase, userId, input)`, `cancelReservation(supabase, reservationId)`, `listAllReservations(supabase, query)`, `getSeatAvailability(supabase, roomId, query): Promise<AvailabilityDto>`.
 
-- [ ] **Step 1: 실패하는 테스트** — `reservations.mapper.test.ts`
+- [x] **Step 1: 실패하는 테스트** — `reservations.mapper.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -434,11 +434,11 @@ describe("toReservationDto", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/app/api/_server/reservations`
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `reservations.mapper.ts`
 ```ts
@@ -687,11 +687,11 @@ export const GET = withErrorHandling(async (req) => {
 });
 ```
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 5: 동작 확인** (dev :3000, admin jar `$J`. 좌석 id 는 layout 에서 가져옴)
+- [x] **Step 5: 동작 확인** (dev :3000, admin jar `$J`. 좌석 id 는 layout 에서 가져옴)
 
 ```bash
 R=<room id>; SEAT=$(curl -s -b $J http://localhost:3000/api/rooms/$R/layout | python3 -c "import sys,json; print([o for o in json.load(sys.stdin)['objects'] if o['type']=='seat'][0]['seat']['id'])")
@@ -707,7 +707,7 @@ curl -s -b $J -H 'Content-Type: application/json' -d "{\"seatId\":\"$SEAT\",\"st
 curl -s -b $J "http://localhost:3000/api/admin/reservations?roomId=$R&date=$D" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))"
 ```
 
-- [ ] **Step 6: 커밋**
+- [x] **Step 6: 커밋**
 
 ```bash
 git add -A
