@@ -17,7 +17,7 @@ pnpm test         # vitest run
 pnpm build
 supabase db push  # supabase/migrations 적용 (link 필요)
 ```
-Node 는 `.npmrc` 의 `use-node-version` 으로 고정. 세 검사(typecheck/lint/test) 통과 전엔 단계 완료 아님.
+Node 는 `pnpm-workspace.yaml` 의 `useNodeVersion` 으로 고정(Vercel 은 `engines.node`). 세 검사(typecheck/lint/test) 통과 전엔 단계 완료 아님.
 
 ## 구조
 ```

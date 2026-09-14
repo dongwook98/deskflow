@@ -185,7 +185,7 @@
 - `supabase link --project-ref <ref>` 후 `supabase db push`. `supabase/migrations/*.sql` 이 단일 진실. 대시보드 SQL Editor 에서 스키마 직접 수정 금지(이력 불일치).
 - 적용 전 `pnpm db:smoke` 로 로컬 검증(D-41). 적용 확인은 `supabase migration list`.
 
-### D-38 · 2026-09-14 · 확정 — 프로젝트 Node 버전을 `.npmrc` `use-node-version=22.21.0` 로 고정
+### D-38 · 2026-09-14 · 확정 — 프로젝트 Node 버전 고정: `pnpm-workspace.yaml` 의 `useNodeVersion: 22.21.0` (처음엔 `.npmrc` `use-node-version` 이었으나 Vercel 이 거부해 2026-09-15 이동)
 - 문제: 이 머신의 pnpm 이 `/usr/local/bin/node`(20.11) 위에서 실행돼 스크립트도 그 Node 를 씀. Vite 7 / Vitest 는 Node 20.19+ 필요(`ERR_REQUIRE_ESM`, `styleText` 없음).
 - 대안: volta 에 pnpm 등록(전역 툴체인 변경), nvm 전환(셸마다 반복).
 - 이유: 프로젝트 파일 하나로 재현 가능. 다른 머신·CI 에서도 동일 Node. `package.json` `engines.node: 22.x` 로 Vercel 도 맞춤. `volta.node` 필드도 함께 유지.

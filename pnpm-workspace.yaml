@@ -1,3 +1,4 @@
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+useNodeVersion: 22.21.0
