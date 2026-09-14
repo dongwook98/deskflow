@@ -1869,7 +1869,7 @@ git commit -m "feat(editor): SVG 캔버스 - 뷰포트 transform, 오브젝트 �
 **Interfaces:**
 - Produces: `<EditorToolbar />`, `<PropertiesPanel />`, `useEditorKeyboard()`.
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/features/room-editor/ui/editor-toolbar.tsx`
 ```tsx
@@ -2082,18 +2082,18 @@ export function RoomEditorPage({ roomId }: { roomId: string }) {
 }
 ```
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 확인**
+- [x] **Step 3: 브라우저 확인**
 
 1. `+ Seat` 3번 → 화면 중심에 S2, S3, S4 (A1 이 있으니 count+1). 마지막 것이 선택됨.
 2. 패널에서 이름 "창가1" 입력 후 Enter → 캔버스 라벨 변경. 상태 "사용 불가" → 회색.
 3. X 에 `5` 입력 → 스냅 없이 5 로 이동(숫자 입력은 스냅 안 함), `-50` 은 0 으로 클램프.
 4. ↻ 두 번 → 180°. 삭제 버튼 → 사라짐. 좌석 선택 후 Delete 키 → 삭제. 이름 입력창에 커서 두고 Backspace → 글자만 지워짐.
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A

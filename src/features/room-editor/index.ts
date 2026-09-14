@@ -9,3 +9,6 @@ export {
 export * from "./model/selectors";
 export { fromLayoutDto, toSaveInput, orderedObjects } from "./lib/document";
 export { EditorCanvas } from "./ui/editor-canvas";
+export { EditorToolbar } from "./ui/editor-toolbar";
+export { PropertiesPanel } from "./ui/properties-panel";
+export { useEditorKeyboard } from "./ui/use-editor-keyboard";
