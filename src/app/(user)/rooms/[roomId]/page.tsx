@@ -3,29 +3,28 @@ import { notFound } from "next/navigation";
 import { ApiError, getQueryClient } from "@/shared/api";
 import { serverFetchContext } from "@/shared/api/server-fetch-context";
 import { roomQueries } from "@/entities/room";
+import { RoomReservation } from "@/widgets/room-reservation";
 
 interface Props {
   params: Promise<{ roomId: string }>;
 }
 
+/** 공간 상세 = 예약 화면. room + layout 을 prefetch, 가용성은 클라이언트가 시간 선택 후 조회 */
 export default async function RoomDetailPage({ params }: Props) {
   const { roomId } = await params;
   const queryClient = getQueryClient();
-  // fetchQuery: prefetch 와 달리 값을 돌려주고 실패를 던진다 → 404 를 notFound() 로 연결
-  const room = await queryClient
-    .fetchQuery(roomQueries.detail(roomId, await serverFetchContext()))
-    .catch((e: unknown) => {
-      if (e instanceof ApiError && e.status === 404) notFound();
-      throw e;
-    });
+  const ctx = await serverFetchContext();
+  await Promise.all([
+    queryClient.fetchQuery(roomQueries.detail(roomId, ctx)),
+    queryClient.fetchQuery(roomQueries.layout(roomId, ctx)),
+  ]).catch((e: unknown) => {
+    if (e instanceof ApiError && e.status === 404) notFound();
+    throw e;
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <h1 className="text-xl font-semibold">{room.name}</h1>
-      <p className="mt-1 text-sm text-zinc-600">{room.description || "설명 없음"}</p>
-      <div className="mt-6 rounded-lg border border-dashed border-zinc-300 p-8 text-center text-sm text-zinc-500">
-        배치도와 예약은 다음 단계(Plan B, C)에서 구현됩니다. 캔버스 {room.width} × {room.height}
-      </div>
+      <RoomReservation roomId={roomId} />
     </HydrationBoundary>
   );
 }

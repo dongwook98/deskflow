@@ -982,7 +982,7 @@ git commit -m "feat(entities): 예약 쿼리·카드, 가용성 쿼리(staleTime
 **Interfaces:**
 - Produces: `TimeRange { date: string; startTime: string; endTime: string }`, `useDefaultTimeRange(): TimeRange`, `toIsoRange(range): { startAt; endAt } | null`, `<TimeRangePicker value onChange />`, `useCreateReservation(roomId)`, `<ReservePanel roomId seat range onDone />`, `useCancelReservation()`, `<CancelReservationButton reservation />`.
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/features/reservation-create/ui/time-range-picker.tsx`
 ```tsx
@@ -1243,11 +1243,11 @@ export { CancelReservationButton } from "./ui/cancel-reservation-button";
 export { useCancelReservation } from "./api/mutations";
 ```
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add -A
@@ -1262,7 +1262,7 @@ git commit -m "feat(reservation): 시간 범위 선택, 예약 생성 패널(409
 - Create: `src/widgets/room-reservation/ui/room-reservation.tsx`, `index.ts`
 - Modify: `src/app/(user)/rooms/[roomId]/page.tsx`
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/widgets/room-reservation/ui/room-reservation.tsx`
 ```tsx
@@ -1395,11 +1395,11 @@ export default async function RoomDetailPage({ params }: Props) {
 }
 ```
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 확인**
+- [x] **Step 3: 브라우저 확인**
 
 1. `/rooms/<id>`: 날짜 = 오늘(KST), 시작 = 다음 슬롯, 종료 = +1h. 배치도에 좌석 색.
 2. 좌석 클릭 → 우측 패널에 이름·시간 → 예약하기 → "예약되었습니다", 그 좌석이 초록(mine)으로.
@@ -1407,7 +1407,7 @@ Run: `pnpm typecheck && pnpm lint && pnpm test`
 4. 충돌: 다른 계정(또는 curl 로 tester 가 아닌 계정)이 같은 좌석·시간을 먼저 예약 → 이 화면에서 예약하기 → "방금 다른 사용자가 예약했습니다" + 좌석이 빨강으로 갱신.
 5. 400px 폭: 배치도가 폭에 맞고 픽커가 세로로 쌓임.
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A
