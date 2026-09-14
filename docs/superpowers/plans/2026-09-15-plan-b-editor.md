@@ -321,7 +321,7 @@ git commit -m "feat(api): 레이아웃 조회/저장 엔드포인트 - save_room
 - Produces (history.ts): `HISTORY_LIMIT`, `emptyHistory`, `pushHistory(h, snapshot, limit?)`, `undoHistory(h, current)`, `redoHistory(h, current)`.
 - Produces (document.ts): `DEFAULT_OBJECT_SIZE`, `fromLayoutDto(layout): EditorDocument`, `toSaveInput(doc, expectedVersion): SaveLayoutInput`, `orderedObjects(doc): SpaceObjectDto[]`, `insertObject(doc, obj)`, `removeObject(doc, id)`, `patchObject(doc, id, patch: ObjectPatch)`, `createObject(args): SpaceObjectDto`, `nextSeatName(doc): string`.
 
-- [ ] **Step 1: 타입 정의** — `src/features/room-editor/model/types.ts`
+- [x] **Step 1: 타입 정의** — `src/features/room-editor/model/types.ts`
 
 ```ts
 import type {
@@ -458,7 +458,7 @@ export interface EditorActions {
 export type EditorStore = EditorState & EditorActions;
 ```
 
-- [ ] **Step 2: 실패하는 테스트 3개 작성**
+- [x] **Step 2: 실패하는 테스트 3개 작성**
 
 `src/features/room-editor/lib/geometry.test.ts`
 ```ts
@@ -719,12 +719,12 @@ describe("createObject / nextSeatName", () => {
 });
 ```
 
-- [ ] **Step 3: 실패 확인**
+- [x] **Step 3: 실패 확인**
 
 Run: `pnpm test src/features/room-editor`
 Expected: 3개 파일 모두 FAIL (모듈 없음)
 
-- [ ] **Step 4: 구현**
+- [x] **Step 4: 구현**
 
 `src/features/room-editor/lib/geometry.ts`
 ```ts
@@ -1020,12 +1020,12 @@ export function nextSeatName(doc: EditorDocument): string {
 }
 ```
 
-- [ ] **Step 5: 통과 확인**
+- [x] **Step 5: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 테스트 51개 통과
 
-- [ ] **Step 6: 커밋**
+- [x] **Step 6: 커밋**
 
 ```bash
 git add -A
