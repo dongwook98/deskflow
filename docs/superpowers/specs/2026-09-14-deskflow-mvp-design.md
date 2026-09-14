@@ -81,7 +81,7 @@ src/
       rooms/[roomId]/layout/route.ts
       rooms/[roomId]/availability/route.ts
       reservations/route.ts
-      reservations/[reservationId]/route.ts
+      reservations/[reservationId]/cancel/route.ts
       admin/reservations/route.ts
   widgets/
     room-editor/                   EditorShell(Header+Toolbar+Canvas+Panel 조립)
@@ -143,7 +143,7 @@ RLS:
 ## 6. API 명세
 
 공통:
-- 성공: `200/201 { data: T }`. 실패: `{ error: { code, message } }`. 코드는 `shared/contracts/error.ts` 의 유니온.
+- 성공: `200/201` 에 `T` 를 봉투 없이 반환. 실패: `4xx/5xx` 에 `{ error: { code, message } }`. 코드는 `shared/contracts/error.ts` 의 유니온. (`apiFetch` 는 `!res.ok` 면 `ApiError` throw)
 - 인증 없음 401 `unauthorized`, 권한 없음 403 `forbidden`, 검증 실패 400 `invalid_input`, 없음 404 `not_found`, 충돌 409 `version_conflict` | `reservation_overlap`.
 - Route Handler 는 10~15줄: `requireUser/Admin → parse → service → ok`. 예외는 `withErrorHandling` 래퍼가 `ApiHttpError → 응답`, 그 외 500.
 
@@ -163,7 +163,7 @@ RLS:
 | GET | /api/rooms/:roomId/availability?start=&end= | user | ISO | `{ occupied: [{ seatId, mine }] }` |
 | GET | /api/reservations | user | - | `ReservationDto[]` (본인, 좌석·룸 이름 포함) |
 | POST | /api/reservations | user | `{ seatId, startAt, endAt }` | `ReservationDto` 201 / 409 |
-| PATCH | /api/reservations/:id | user(본인) / admin | `{ status: 'cancelled' }` | `ReservationDto` |
+| POST | /api/reservations/:id/cancel | user(본인) / admin | - | `ReservationDto` (상태 전이는 동사 서브리소스) |
 | GET | /api/admin/reservations | admin | `?roomId&date` | `ReservationDto[]` |
 
 ## 7. 계약 (`shared/contracts`)
@@ -181,11 +181,13 @@ export interface LayoutDto { roomId; width; height; layoutVersion; objects: Spac
 export const createRoomSchema, updateRoomSchema, saveLayoutSchema (zod). SpaceObjectInput = z.infer<...>
 ```
 - DTO 는 camelCase, 날짜는 ISO 문자열. 변환은 `_server` 서비스에서 끝낸다.
-- 프론트 도메인 타입 = DTO 그대로 사용. 별도 매핑 계층 없음 (2일 범위). 백엔드 교체 시 `_server` 가 같은 DTO 를 내보내면 프론트 무변경.
+- 프론트 도메인 타입 = DTO 그대로 사용. 조회/CRUD 화면에는 별도 매핑 계층을 두지 않는다. 이유: DTO 를 우리가 설계하므로 이미 UI 친화적(camelCase, ISO 날짜, 판별 유니온). 매핑 계층은 API 모양이 UI 와 어긋날 때 도입한다. 도입 지점은 `entities/*/api/queries.ts` 의 `select` 옵션 한 곳(모든 조회가 여기를 지남).
+- 예외: 에디터. `EditorDocument` 가 편집용 도메인 모델이고 `features/room-editor/lib/document.ts` 의 `fromLayoutDto / toSaveInput` 이 매핑이다. 정규화(Record + order)와 불변 갱신이 필요해서 DTO 배열을 그대로 쓰지 않는다.
 
 ## 8. 서버 상태 (TanStack Query)
 
 - `makeQueryClient()`: `defaultOptions.queries.staleTime = 60_000`. 서버는 `React.cache()` 로 요청당 1개, 브라우저는 모듈 싱글톤.
+- 예외: 가용성 쿼리는 `staleTime: 15_000`, `refetchOnWindowFocus: true` 로 덮어쓴다. 다른 사용자의 예약이 곧 반영돼야 한다.
 - queryKey 는 `entities/*/model/query-keys.ts` 에 팩토리로: `roomKeys.all / list() / detail(id) / layout(id) / availability(id, start, end)`, `reservationKeys.mine() / admin(filters)`, `authKeys.me()`.
 - `queryOptions` 팩토리는 `ctx?: ServerFetchContext` 를 받는다. queryFn 은 하나: `apiFetch(path, undefined, ctx)`.
 - **대안 B 채택**: 서버 prefetch 도 `/api` 를 호출한다.
@@ -223,13 +225,13 @@ viewport: { zoom: 0.5|0.75|1|1.25|1.5; offsetX; offsetY },
 tool: { type: "select" } | { type: "place"; objectType },
 interaction: { type: "idle" } | { type: "drag"; id; startPointer; startPosition } | { type: "pan"; lastPointer },
 persistence: { savedDocument; inFlightDocument: EditorDocument | null; layoutVersion; status: "idle"|"saving"|"error"; error: string | null },
-settings: { gridSize: 10; snapToGrid: true }, spaceHeld: boolean
+settings: { gridSize: 10; snapToGrid: true }
 ```
 액션:
 - 히스토리 1단계: `addObject(type)`(뷰포트 중심), `deleteSelected()`, `rotateSelected(±90)`, `updateSelected(patch)`(이름·상태·위치·크기 숫자 입력).
 - 제스처: `beginGesture()` → `moveObject(id, canvasPoint)` × n(스냅+클램프, 히스토리 없음) → `endGesture()`(문서가 바뀌었으면 스냅샷 1개 push).
 - `undo()/redo()`: 선택이 삭제된 오브젝트면 해제.
-- `select(id|null)`, `setViewport`, `zoomStep(dir, anchorScreenPoint)`, `panBy(dx,dy)`, `setTool`, `setInteraction`, `setSpaceHeld`.
+- `select(id|null)`, `setViewport`, `zoomStep(dir, anchorScreenPoint)`, `panBy(dx,dy)`, `setTool`, `setInteraction`. Space 키 눌림은 캔버스 훅의 로컬 ref(스토어 밖). 커서 표시는 `interaction.type === 'pan'` 으로 판단.
 - 영속: `saveStarted()`(inFlight = document), `saveSucceeded(version)`(saved = inFlight), `saveFailed(msg)`, `replaceDocument(doc, version)`(충돌 후 교체, 히스토리 초기화).
 파생 셀렉터: `isDirty = document !== persistence.savedDocument`, `canUndo`, `canRedo`, `selectedObject`, `orderedObjects`.
 
@@ -288,7 +290,7 @@ proxy.ts → 모든 요청에서 세션 갱신, 미로그인 + 비공개 경로 
 ## 13. 구현 순서 (2일)
 
 Day 1
-1. 기반: 의존성, 설정, `shared/api`, `contracts`, `_server/http`, `_server/db`, `proxy.ts`, 마이그레이션 SQL → 사용자가 Supabase 에 적용
+1. 기반: 의존성, 설정, `shared/api`, `contracts`, `_server/http`, `_server/db`, `proxy.ts`, 마이그레이션 SQL → Supabase CLI(`supabase link` + `supabase db push`)로 적용. CLI 미설치 시 SQL Editor 에 붙여넣기
 2. Auth: `/api/auth/*`, 로그인/회원가입 페이지, admin 가드
 3. Room CRUD: API + `/admin/rooms`, `/admin/rooms/new`, `/rooms`, `/rooms/:id` 뼈대
 4. 에디터 상태: 스토어 + 순수 로직 + 테스트
@@ -298,7 +300,7 @@ Day 2
 6. Undo/Redo, Zoom/Pan, Dirty + 이탈 경고, 키보드
 7. 예약: availability API, 뷰어, 날짜/시간 선택, 생성/취소, 내 예약, 관리자 현황
 8. 로딩/에러 기본, 반응형(예약 화면)
-9. 배포(Vercel env, Supabase URL 설정), README(구조·결정·트러블슈팅·질문 답)
+9. 배포(Vercel env, Supabase URL 설정), README(구조·결정·트러블슈팅·질문 답). `docs/decisions.md` 는 각 단계마다 한 줄씩 누적해 두고 README 는 이를 정리만 한다
 
 각 단계 끝: `pnpm typecheck && pnpm lint && pnpm test` 후 결과 보고, 다음 단계 제안 → 컨펌.
 
