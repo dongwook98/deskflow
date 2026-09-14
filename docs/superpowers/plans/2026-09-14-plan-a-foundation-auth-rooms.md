@@ -82,7 +82,7 @@ src/
 **Interfaces:**
 - Produces: `apiFetch<T>(path: string, init?: ApiFetchInit, ctx?: ServerFetchContext): Promise<T>`, `class ApiError { status: number; code: ApiErrorCode }`, `getQueryClient(): QueryClient`, `QueryProvider`, `serverFetchContext(): Promise<ServerFetchContext>`, `getSiteOrigin(fallback?): string`.
 
-- [ ] **Step 1: 실패하는 테스트 작성** — `src/shared/api/http.test.ts`
+- [x] **Step 1: 실패하는 테스트 작성** — `src/shared/api/http.test.ts`
 
 ```ts
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -147,12 +147,12 @@ describe("apiFetch", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/shared/api/http.test.ts`
 Expected: FAIL — `Failed to resolve import "./http"`
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `src/shared/config/site.ts`
 ```ts
@@ -353,17 +353,17 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 NEXT_PUBLIC_SITE_URL=
 ```
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 테스트 13개 통과 (contracts 7 + http 6)
 
-- [ ] **Step 5: dev 확인**
+- [x] **Step 5: dev 확인**
 
 Run: `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/` (dev 서버 실행 중일 때)
 Expected: `200`
 
-- [ ] **Step 6: 커밋** (사용자 컨펌 후)
+- [x] **Step 6: 커밋** (사용자 컨펌 후)
 
 ```bash
 git add -A
