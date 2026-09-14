@@ -12,3 +12,4 @@ export { EditorCanvas } from "./ui/editor-canvas";
 export { EditorToolbar } from "./ui/editor-toolbar";
 export { PropertiesPanel } from "./ui/properties-panel";
 export { useEditorKeyboard } from "./ui/use-editor-keyboard";
+export { HistoryControls } from "./ui/history-controls";

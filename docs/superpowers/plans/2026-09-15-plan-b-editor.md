@@ -2110,7 +2110,7 @@ git commit -m "feat(editor): 오브젝트 툴바, 속성 패널(이름·상태·
 - Modify: `src/features/room-editor/index.ts`
 - Modify: `room-editor-page.tsx` (상단 바 추가)
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/features/room-editor/ui/history-controls.tsx`
 ```tsx
@@ -2216,16 +2216,16 @@ function EditorBody() {
 ```
 (import 에 `HistoryControls` 추가)
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 확인**
+- [x] **Step 3: 브라우저 확인**
 
 1. 좌석 추가 → 드래그 → 회전 → 이름 변경. Ctrl+Z 4번: 이름 → 회전 → 위치(드래그 전 자리로 한 번에) → 추가 취소. Ctrl+Shift+Z 로 복구.
 2. 버튼 disabled 상태가 past/future 와 맞는다. 이름 입력창에서 Ctrl+Z 는 브라우저 기본(텍스트 되돌리기)만.
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A

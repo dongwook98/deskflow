@@ -6,6 +6,7 @@ import {
   EditorCanvas,
   EditorStoreProvider,
   EditorToolbar,
+  HistoryControls,
   PropertiesPanel,
   useEditorKeyboard,
 } from "@/features/room-editor";
@@ -14,14 +15,19 @@ import {
 function EditorBody() {
   useEditorKeyboard();
   return (
-    <div className="grid h-[75vh] grid-cols-[140px_1fr_260px] rounded-lg border border-zinc-200 bg-white">
-      <aside className="border-r border-zinc-200">
-        <EditorToolbar />
-      </aside>
-      <EditorCanvas />
-      <aside className="overflow-y-auto border-l border-zinc-200">
-        <PropertiesPanel />
-      </aside>
+    <div className="flex h-[80vh] flex-col rounded-lg border border-zinc-200 bg-white">
+      <div className="flex h-12 items-center gap-3 border-b border-zinc-200 px-3">
+        <HistoryControls />
+      </div>
+      <div className="grid min-h-0 flex-1 grid-cols-[140px_1fr_260px]">
+        <aside className="border-r border-zinc-200">
+          <EditorToolbar />
+        </aside>
+        <EditorCanvas />
+        <aside className="overflow-y-auto border-l border-zinc-200">
+          <PropertiesPanel />
+        </aside>
+      </div>
     </div>
   );
 }
