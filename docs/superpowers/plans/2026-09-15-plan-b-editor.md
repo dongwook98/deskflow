@@ -1047,7 +1047,7 @@ git commit -m "feat(editor): 순수 로직 - 좌표 변환·zoom 단계·스냅�
 - Consumes: Task 2 전부, `LayoutDto`.
 - Produces: `createEditorStore({ layout, gridSize? }): EditorStoreApi`, `EditorStoreApi`, `EditorStoreProvider({ layout, children })`, `useEditorStore(selector)`, `useEditorStoreApi()`, selectors: `selectIsDirty`, `selectCanUndo`, `selectCanRedo`, `selectSelectedObject`, `selectSaveStatus`.
 
-- [ ] **Step 1: 실패하는 테스트** — `src/features/room-editor/model/store.test.ts`
+- [x] **Step 1: 실패하는 테스트** — `src/features/room-editor/model/store.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -1204,12 +1204,12 @@ describe("에디터 스토어", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/features/room-editor/model`
 Expected: FAIL (모듈 없음)
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `src/features/room-editor/model/store.ts`
 ```ts
@@ -1535,12 +1535,12 @@ export * from "./model/selectors";
 export { fromLayoutDto, toSaveInput, orderedObjects } from "./lib/document";
 ```
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 Expected: 테스트 63개 통과
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add -A
