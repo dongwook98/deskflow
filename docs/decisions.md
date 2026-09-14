@@ -201,6 +201,10 @@
 - 임시 Postgres 에 Supabase 환경(auth 스키마, roles, 권한)을 스텁으로 재현. exclusion constraint, RLS, RPC 버전 충돌, seat id 유지, restrict 를 확인.
 - 한계: 실제 Supabase 의 auth 훅·기본 권한과 100% 동일하지 않음. `db push` 후 실제 환경에서 한 번 더 확인.
 
+### D-42 · 2026-09-15 · 확정 — Supabase CLI 2.117 로 업그레이드 (brew). 관리 쿼리는 `supabase db query --linked`
+- 첫 admin 승격 등 일회성 데이터 변경은 마이그레이션이 아니라 `db query` 로 실행한다. 스키마 변경만 마이그레이션.
+- 바이너리 교체 후 첫 실행 시 macOS 키체인이 "로그인 키체인 암호" 를 묻는다(저장된 액세스 토큰 접근 권한). Mac 로그인 비밀번호 입력 + 항상 허용.
+
 ---
 
 ## 보류 (답 필요)
