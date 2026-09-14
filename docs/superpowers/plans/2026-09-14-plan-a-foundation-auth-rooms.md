@@ -906,7 +906,7 @@ git commit -m "feat: add proxy for session refresh and auth redirects"
 - Consumes: `createServerSupabase`, `requireUser`, `parseBody`, `ok`, `noContent`, `withErrorHandling`, `ApiHttpError`, `mapPostgresError`, `loginSchema`, `signupSchema`, `MeDto`.
 - Produces: `signup(supabase, input: SignupInput): Promise<MeDto>`, `login(supabase, input: LoginInput): Promise<MeDto>`, `logout(supabase): Promise<void>`, `getMe(supabase, userId: string): Promise<MeDto>`.
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/app/api/_server/auth/auth.service.ts`
 ```ts
@@ -1015,11 +1015,11 @@ export const GET = withErrorHandling(async () => {
 });
 ```
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 동작 확인** (dev 실행 중. 테스트 계정은 나중에 삭제 가능)
+- [x] **Step 3: 동작 확인** (dev 실행 중. 테스트 계정은 나중에 삭제 가능)
 
 ```bash
 curl -s -c /tmp/df.jar -H 'Content-Type: application/json' \
@@ -1033,7 +1033,7 @@ curl -s -c /tmp/df.jar -H 'Content-Type: application/json' \
 Expected: 1) `{"id":"...","name":"테스터","role":"user"}` 2) 같은 객체 3) `204` 4) `{"error":{"code":"unauthorized",...}}`
 (이미 가입된 이메일이면 1 은 400 — login 으로 대체.)
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A
