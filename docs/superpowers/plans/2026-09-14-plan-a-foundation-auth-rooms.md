@@ -1055,7 +1055,7 @@ git commit -m "feat(api): add auth endpoints - signup, login, logout, me"
 - Consumes: `apiFetch`, `ApiError`, `MeDto`, `loginSchema`, `signupSchema`.
 - Produces: `authKeys.me()`, `meQuery(ctx?)`, `useLogin()`, `useSignup()`, `useLogout()`, `<LoginForm />`, `<SignupForm />`, `<LogoutButton />`, `<Button>`, `<Input>`, `<Field>`, `cn()`.
 
-- [ ] **Step 1: shared/ui + cn**
+- [x] **Step 1: shared/ui + cn**
 
 `src/shared/lib/cn.ts`
 ```ts
@@ -1149,7 +1149,7 @@ export { Input } from "./input";
 export { Field } from "./field";
 ```
 
-- [ ] **Step 2: entities/user**
+- [x] **Step 2: entities/user**
 
 `src/entities/user/model/query-keys.ts`
 ```ts
@@ -1181,7 +1181,7 @@ export { authKeys } from "./model/query-keys";
 export { meQuery } from "./api/queries";
 ```
 
-- [ ] **Step 3: features/auth**
+- [x] **Step 3: features/auth**
 
 `src/features/auth/api/mutations.ts`
 ```ts
@@ -1358,7 +1358,7 @@ export { LogoutButton } from "./ui/logout-button";
 export { useLogin, useSignup, useLogout } from "./api/mutations";
 ```
 
-- [ ] **Step 4: 페이지**
+- [x] **Step 4: 페이지**
 
 `src/app/(public)/login/page.tsx`
 ```tsx
@@ -1409,15 +1409,15 @@ export default function SignupPage() {
 }
 ```
 
-- [ ] **Step 5: 통과 확인**
+- [x] **Step 5: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 6: 브라우저 확인**
+- [x] **Step 6: 브라우저 확인**
 
 `http://localhost:3000/signup` 에서 가입 → `/rooms` 로 이동(404 는 정상, Task 8 에서 생김). `/login` 재접속 시 `/rooms` 로 리다이렉트되면 세션 OK.
 
-- [ ] **Step 7: 커밋**
+- [x] **Step 7: 커밋**
 
 ```bash
 git add -A
