@@ -183,6 +183,14 @@
 ### D-37 · 확정 — 마이그레이션은 Supabase CLI 로 적용
 - `supabase link --project-ref <ref>` 후 `supabase db push`. `supabase/migrations/*.sql` 이 단일 진실. 대시보드 SQL Editor 직접 수정 금지.
 
+### D-38 · 2026-09-14 · 확정 — 프로젝트 Node 버전을 `.npmrc` `use-node-version=22.21.0` 로 고정
+- 문제: 이 머신의 pnpm 이 `/usr/local/bin/node`(20.11) 위에서 실행돼 스크립트도 그 Node 를 씀. Vite 7 / Vitest 는 Node 20.19+ 필요(`ERR_REQUIRE_ESM`, `styleText` 없음).
+- 대안: volta 에 pnpm 등록(전역 툴체인 변경), nvm 전환(셸마다 반복).
+- 이유: 프로젝트 파일 하나로 재현 가능. 다른 머신·CI 에서도 동일 Node. `package.json` `engines.node: 22.x` 로 Vercel 도 맞춤. `volta.node` 필드도 함께 유지.
+
+### D-39 · 2026-09-14 · 확정 — Vitest 3.x 사용 (5.0 아님)
+- 이유: 5.0 은 출시 직후(rolldown 기반). 3.x 가 현재 실무 다수. 문제 시 검색 자료 풍부. Node 문제 해결 후에도 유지.
+
 ---
 
 ## 보류 (답 필요)
