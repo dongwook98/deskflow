@@ -225,6 +225,11 @@
 - 포트폴리오 목적이라 public. 비밀값은 `.env.local` 로 gitignore, 커밋에 없음(스캔 확인).
 - 1인 개발이라 main 직접 커밋. Vercel 은 main push 마다 프로덕션 배포 (Plan D).
 
+### D-48 · 2026-09-15 · 확정 — Vercel 프로덕션 배포 `https://deskflow-pink.vercel.app`
+- CLI(`vercel link` → `vercel env add` → `vercel --prod`). 환경변수는 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` 두 개. `NEXT_PUBLIC_SITE_URL` 은 host 헤더 폴백으로 충분해 미설정(서버 prefetch B 패턴이 프로덕션에서 동작 확인).
+- Git 자동 배포는 Vercel GitHub App 설치 후 대시보드에서 연결(`vercel git connect` 가 앱 미설치로 실패). 그때까지는 `vercel --prod` 수동.
+- 첫 배포 실패 원인: `.npmrc` `use-node-version` 을 Vercel 이 거부 → D-38 갱신.
+
 ---
 
 ## 보류 (답 필요)
