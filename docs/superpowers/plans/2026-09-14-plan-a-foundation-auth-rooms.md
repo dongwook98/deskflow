@@ -1439,7 +1439,7 @@ git commit -m "feat(auth): add login/signup pages, auth mutations and shared ui 
 - Consumes: `Tables<"rooms">` (Task 2), `RoomDto`, `createRoomSchema`, `updateRoomSchema`, http 헬퍼.
 - Produces: `toRoomDto(row: Tables<"rooms">): RoomDto`, `listRooms(supabase): Promise<RoomDto[]>`, `getRoom(supabase, id): Promise<RoomDto>`, `createRoom(supabase, userId, input: CreateRoomInput): Promise<RoomDto>`, `updateRoom(supabase, id, input: UpdateRoomInput): Promise<RoomDto>`, `deleteRoom(supabase, id): Promise<void>`.
 
-- [ ] **Step 1: 실패하는 테스트** — `src/app/api/_server/rooms/rooms.mapper.test.ts`
+- [x] **Step 1: 실패하는 테스트** — `src/app/api/_server/rooms/rooms.mapper.test.ts`
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -1473,12 +1473,12 @@ describe("toRoomDto", () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm test src/app/api/_server/rooms`
 Expected: FAIL
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `src/app/api/_server/rooms/rooms.mapper.ts`
 ```ts
@@ -1617,7 +1617,7 @@ export const DELETE = withErrorHandling<Ctx>(async (_req, { params }) => {
 });
 ```
 
-- [ ] **Step 4: 통과 확인**
+- [x] **Step 4: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
