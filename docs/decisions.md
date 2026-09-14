@@ -177,13 +177,17 @@
 
 ---
 
+### D-22 · 확정 — Vercel 은 프로덕션 배포만 사용
+- 영향: D-10(B 패턴)의 프리뷰 Deployment Protection 문제 없음. `NEXT_PUBLIC_SITE_URL` 은 프로덕션 도메인 하나만 설정.
+
+### D-37 · 확정 — 마이그레이션은 Supabase CLI 로 적용
+- `supabase link --project-ref <ref>` 후 `supabase db push`. `supabase/migrations/*.sql` 이 단일 진실. 대시보드 SQL Editor 직접 수정 금지.
+
+---
+
 ## 보류 (답 필요)
 
-### D-22 · 보류 — Vercel 프리뷰 배포 사용 여부
-- 영향: D-10(B 패턴)에서 프리뷰 Deployment Protection 이 자기 `/api` 호출을 막음. 프로덕션만 쓰면 무관. 프리뷰 쓰면 Protection 끄거나 `NEXT_PUBLIC_SITE_URL` 설정.
-
-### D-37 · 보류 — 마이그레이션 적용 방법
-- Supabase CLI(`supabase link` + `db push`) 우선. CLI 미설치 시 SQL Editor 붙여넣기.
+(없음)
 
 ---
 
