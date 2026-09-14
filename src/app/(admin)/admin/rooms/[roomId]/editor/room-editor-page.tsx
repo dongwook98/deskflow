@@ -8,6 +8,7 @@ import {
   EditorToolbar,
   HistoryControls,
   PropertiesPanel,
+  ZoomControls,
   useEditorKeyboard,
 } from "@/features/room-editor";
 
@@ -18,6 +19,7 @@ function EditorBody() {
     <div className="flex h-[80vh] flex-col rounded-lg border border-zinc-200 bg-white">
       <div className="flex h-12 items-center gap-3 border-b border-zinc-200 px-3">
         <HistoryControls />
+        <ZoomControls />
       </div>
       <div className="grid min-h-0 flex-1 grid-cols-[140px_1fr_260px]">
         <aside className="border-r border-zinc-200">

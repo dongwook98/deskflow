@@ -2243,7 +2243,7 @@ git commit -m "feat(editor): Undo/Redo 버튼과 Ctrl+Z / Ctrl+Shift+Z / Ctrl+Y 
 - Modify: `src/features/room-editor/ui/editor-canvas.tsx` (휠 훅 연결)
 - Modify: `src/features/room-editor/index.ts`, `room-editor-page.tsx` (ZoomControls 배치)
 
-- [ ] **Step 1: 구현**
+- [x] **Step 1: 구현**
 
 `src/features/room-editor/ui/use-canvas-wheel.ts`
 ```ts
@@ -2438,18 +2438,18 @@ import { useCanvasWheel } from "./use-canvas-wheel";
 
 `index.ts` 에 `export { ZoomControls } from "./ui/zoom-controls";`. `room-editor-page.tsx` 상단 바에 `<HistoryControls />` 옆 `<ZoomControls />`.
 
-- [ ] **Step 2: 통과 확인**
+- [x] **Step 2: 통과 확인**
 
 Run: `pnpm typecheck && pnpm lint && pnpm test`
 
-- [ ] **Step 3: 브라우저 확인**
+- [x] **Step 3: 브라우저 확인**
 
 1. 좌석 위에 커서 두고 휠 업 → 그 좌석이 커서 아래 그대로 있으면서 확대. 표시 % 가 단계별로 변함. 페이지는 스크롤 안 됨.
 2. Space 누르면 커서 grab, 드래그하면 캔버스 이동. 놓으면 원래 커서. 휠 클릭 드래그도 팬.
 3. 팬/줌 후 `+ Seat` → 여전히 보이는 화면 중앙에 생성. "맞춤" → 처음 상태.
 4. 줌 1.5 에서 드래그해도 오브젝트가 커서를 정확히 따라온다 (좌표 변환 검증).
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add -A

@@ -5,6 +5,7 @@ import { orderedObjects } from "../lib/document";
 import { useEditorStore } from "../model/editor-store-provider";
 import { SpaceObjectView } from "./space-object-view";
 import { useCanvasPointer } from "./use-canvas-pointer";
+import { useCanvasWheel } from "./use-canvas-wheel";
 
 /**
  * 캔버스 본체. svg 하나에 <g transform="translate(offset) scale(zoom)"> 로 뷰포트를 표현한다.
@@ -17,7 +18,8 @@ export function EditorCanvas() {
   const selectedId = useEditorStore((s) => s.selectedObjectId);
   const setViewportSize = useEditorStore((s) => s.setViewportSize);
   const objects = useMemo(() => orderedObjects(document), [document]);
-  const { handlers, isPanning } = useCanvasPointer(svgRef);
+  const { handlers, isPanning, spaceHeld } = useCanvasPointer(svgRef);
+  useCanvasWheel(svgRef);
 
   // 캔버스 DOM 크기를 스토어에 보고. 최초 보고에서 스토어가 fit 을 수행한다.
   useEffect(() => {
@@ -30,10 +32,13 @@ export function EditorCanvas() {
     return () => observer.disconnect();
   }, [setViewportSize]);
 
+  // 팬 중이면 grabbing, Space 누른 상태면 grab, 평소엔 기본 커서
+  const cursor = isPanning ? "cursor-grabbing" : spaceHeld ? "cursor-grab" : "";
+
   return (
     <svg
       ref={svgRef}
-      className={`h-full w-full touch-none select-none bg-zinc-100 ${isPanning ? "cursor-grabbing" : ""}`}
+      className={`h-full w-full touch-none select-none bg-zinc-100 ${cursor}`}
       {...handlers}
     >
       <g transform={`translate(${viewport.offsetX} ${viewport.offsetY}) scale(${viewport.zoom})`}>

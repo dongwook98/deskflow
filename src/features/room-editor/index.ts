@@ -13,3 +13,4 @@ export { EditorToolbar } from "./ui/editor-toolbar";
 export { PropertiesPanel } from "./ui/properties-panel";
 export { useEditorKeyboard } from "./ui/use-editor-keyboard";
 export { HistoryControls } from "./ui/history-controls";
+export { ZoomControls } from "./ui/zoom-controls";
